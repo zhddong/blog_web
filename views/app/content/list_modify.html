@@ -20,9 +20,9 @@
       </div>
     </div>
     <div class="layui-form-item">
-      <label class="layui-form-label">用户ID</label>
+      <label class="layui-form-label">文章ID</label>
       <div class="layui-input-inline">
-        <input type="text" name="author" lay-verify="required" placeholder="请输入用户ID" autocomplete="off" class="layui-input">
+        <input type="text" name="author" lay-verify="required" placeholder="请输入文章ID" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -89,14 +89,14 @@
       // $.ajax({});
       //请求接口
       admin.req({
-        url: "http://127.0.0.1:8080/content"//layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
+        url: "http://127.0.0.1:8080/content_modify"//layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
         ,type:"post"
         ,data: field
         ,done: function(res){        
-          alert("添加成功");
+          alert("修改成功");
         },
         error: function(res){
-          alert("添加失败");
+          alert("修改失败");
         }
       });
       parent.layui.table.reload('LAY-app-content-list'); //重载表格
