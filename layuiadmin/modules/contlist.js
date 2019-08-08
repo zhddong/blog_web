@@ -1,4 +1,4 @@
-/**
+  /**
 
  @Name：layuiAdmin 内容系统
  @Author：star1029
@@ -38,11 +38,20 @@ layui.define(['table', 'form'], function(exports){
     var data = obj.data;
     if(obj.event === 'del'){
       layer.confirm('确定删除此文章？', function(index){
-        obj.del();
+        // obj.del();
+        
+        // $.ajax({ 
+        // url: "http://127.0.0.1:8080/delete_articles"//layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
+        // ,type:"post"
+        // ,data: data
+        // ,done: function(res){
+        //   alert("删除成功");
+        // },
+        // error: function(res){
+        //   alert("删除失败");
+        // }
+        // });
         layer.close(index);
-        // admin.req({
-
-        // })
       });
     } else if(obj.event === 'edit'){
       layer.open({
@@ -56,25 +65,34 @@ layui.define(['table', 'form'], function(exports){
           var iframeWindow = window['layui-layer-iframe'+ index]
           ,submit = layero.find('iframe').contents().find("#layuiadmin-app-form-edit");
         console.log(data.id)
-
+        // console.log(typeof data.id);
+        var b = {
+          id:data.id
+        }
           //监听提交
           iframeWindow.layui.form.on('submit(layuiadmin-app-form-edit)', function(data){
             var field = data.field; //获取提交的字段
-            console.log(field)
-            var new_data = data.field + data.id
-
+            // a = parseInt(data.id)
+            function combin(a,b){
+              for(var i in b){
+                a[i] = b[i]
+              }
+              return a;
+            }
+            var new_field = combin(field,b)
+            console.log(new_field)
             //提交 Ajax 成功后，静态更新表格中的数据
             $.ajax({ 
             url: "http://127.0.0.1:8080/content_modify"//layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
             ,type:"post"
-            ,data: new_data
+            ,data: new_field
             ,done: function(res){        
               alert("修改成功");
             },
             error: function(res){
               alert("修改失败");
             }
-          });           
+            });     
           // obj.update({
           //   label: field.label
           //   ,title: field.title
@@ -89,6 +107,8 @@ layui.define(['table', 'form'], function(exports){
         }
       });
     }
+    // parent.layui.table.reload('LAY-app-content-list'); //重载表格
+    // parent.layer.close(index); //再执行关闭  
   });
 
   //分类管理
