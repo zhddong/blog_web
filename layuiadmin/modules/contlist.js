@@ -36,22 +36,28 @@ layui.define(['table', 'form'], function(exports){
   //监听工具条
   table.on('tool(LAY-app-content-list)', function(obj){
     var data = obj.data;
+    // console.log(data)
     if(obj.event === 'del'){
       layer.confirm('确定删除此文章？', function(index){
         // obj.del();
-        
-        // $.ajax({ 
-        // url: "http://127.0.0.1:8080/delete_articles"//layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
-        // ,type:"post"
-        // ,data: data
-        // ,done: function(res){
-        //   alert("删除成功");
-        // },
-        // error: function(res){
-        //   alert("删除失败");
-        // }
-        // });
-        layer.close(index);
+        $.ajax({ 
+        url: "http://127.0.0.1:8080/delete_articles"//layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
+        ,type:"post"
+        ,data: data
+        ,done: function(res){
+          alert("删除成功");
+        },
+        error: function(res){
+          alert("删除失败");
+        }
+        });
+        table.reload('LAY-app-content-list', {
+        page: {
+        curr: 1 //重新从第 1 页开始
+        }
+        });
+        // form.render();
+        layer.close(index);//关闭弹层
       });
     } else if(obj.event === 'edit'){
       layer.open({
@@ -99,8 +105,12 @@ layui.define(['table', 'form'], function(exports){
           //   ,author: field.author
           //   ,status: field.status
           // }); //数据更新
-            
-            form.render();
+            table.reload('LAY-app-content-list', {
+            page: {
+            curr: 1 //重新从第 1 页开始
+            }
+            });
+            // form.render();
             layer.close(index); //关闭弹层
           });  
           submit.trigger('click');
