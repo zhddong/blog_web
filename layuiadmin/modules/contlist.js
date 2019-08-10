@@ -124,7 +124,7 @@ layui.define(['table', 'form'], function(exports){
   //分类管理
   table.render({
     elem: '#LAY-app-content-tags'
-    ,url: layui.setter.base + 'json/content/tags.js' //模拟接口
+    ,url: "http://127.0.0.1:8080/classification"//layui.setter.base + 'json/content/tags.js' //模拟接口
     ,cols: [[
       {type: 'numbers', fixed: 'left'}
       ,{field: 'id', width: 100, title: 'ID', sort: true}
